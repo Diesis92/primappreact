@@ -3,16 +3,16 @@ import "./TaskList.css";
 
 function TaskList() {
     const [lista, setLista] = useState([]);
-    let str = ''
+    const [task, setTask] = useState("");
 
     const submit = (e) => {
         e.preventDefault();
-        let nuovalista = [...lista, str];
-        setLista(nuovalista);
+        setLista([...lista, task]);
+        setTask("");
     };
 
     const handleChange = (e) => {
-        str = e.target.value;
+        setTask(e.target.value);
     };
 
     return (
@@ -21,15 +21,22 @@ function TaskList() {
             <form onSubmit={submit} className="tasklist">
                 <label htmlFor="task">Inserisci nuovo task:</label>
                 <div>
-                    <input type="text" id="task" onChange={handleChange} />
+                    <input
+                        type="text"
+                        id="task"
+                        onChange={handleChange}
+                        value={task}
+                    />
                     <button type="submit" value="submit">
                         Invia
                     </button>
                 </div>
             </form>
-            {lista.map((elem, i) => (
-                <li key={i}>{elem}</li>
-            ))}
+            <ul>
+                {lista.map((elem, i) => (
+                    <li key={i}>{elem}</li>
+                ))}
+            </ul>
         </div>
     );
 }
